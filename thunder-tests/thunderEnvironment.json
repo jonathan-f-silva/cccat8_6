@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "503d312e-c301-4d82-9fc2-183f8c2db6f4",
+    "name": "servers",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2022-10-29T21:24:22.231Z",
+    "modified": "2022-10-29T21:27:03.559Z",
+    "data": [
+      {
+        "name": "checkout",
+        "value": "localhost:3000"
+      },
+      {
+        "name": "freight",
+        "value": "localhost:3001"
+      },
+      {
+        "name": "catalog",
+        "value": "localhost:3002"
+      }
+    ]
+  }
+]

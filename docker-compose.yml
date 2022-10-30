@@ -1,0 +1,133 @@
+services:
+  ui:
+    image: node:18-alpine
+    user: node
+    working_dir: /app
+    command: yarn dev
+    ports:
+      - 3030:5173
+    environment:
+      - DB_URI=postgres://postgres:postgres@db:5432/ccca
+    volumes:
+      - ./ui:/app
+
+  checkout:
+    image: node:18-alpine
+    user: node
+    working_dir: /app
+    command: yarn start
+    ports:
+      - 3000:3000
+    environment:
+      - DB_URI=postgres://postgres:postgres@db:5432/ccca
+      - CATALOG_HOST=catalog
+      - FREIGHT_HOST=freight
+      - STOCK_HOST=stock
+      - RABBIT_HOST=rabbitmq
+    volumes:
+      - ./checkout:/app
+    depends_on:
+        - db
+        - rabbitmq
+  
+  freight:
+    image: node:18-alpine
+    user: node
+    working_dir: /app
+    command: yarn start
+    ports:
+      - 3001:3001
+    environment:
+      - DB_URI=postgres://postgres:postgres@db:5432/ccca
+    volumes:
+      - ./freight:/app
+    depends_on:
+      - db
+      - rabbitmq
+  
+  catalog:
+    image: node:18-alpine
+    user: node
+    working_dir: /app
+    command: yarn start
+    ports:
+      - 3002:3002
+    environment:
+      - DB_URI=postgres://postgres:postgres@db:5432/ccca
+      - RABBIT_HOST=rabbitmq
+    volumes:
+      - ./catalog:/app
+    depends_on:
+      - db
+      - rabbitmq
+  
+  stock:
+    image: node:18-alpine
+    user: node
+    working_dir: /app
+    command: yarn start
+    ports:
+      - 3003:3003
+    environment:
+      - DB_URI=postgres://postgres:postgres@db:5432/ccca
+      - RABBIT_HOST=rabbitmq
+    volumes:
+      - ./stock:/app
+    depends_on:
+      - db
+      - rabbitmq
+
+  notification:
+    image: node:18-alpine
+    user: node
+    working_dir: /app
+    command: yarn start
+    environment:
+      - RABBIT_HOST=rabbitmq
+    volumes:
+      - ./notification:/app
+    depends_on:
+      - rabbitmq
+
+  queue:
+    image: node:18-alpine
+    user: node
+    working_dir: /app
+    command: yarn start
+    environment:
+      - RABBIT_HOST=rabbitmq
+    volumes:
+      - ./queue:/app
+    depends_on:
+      - rabbitmq
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+    - 3010:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ccca
+    volumes:
+      - ./db/create.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 3011:8080
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 3012:5672
+      - 3013:15672
+    volumes:
+      - ./rabbitmq/docker-healthcheck:/usr/bin/docker-healthcheck
+    healthcheck:
+      test: ["docker-healthcheck"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s

@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "8a7ce072-af64-4f64-b9e3-94435078eda1",
+    "colId": "5a851f27-f89b-4126-a4c1-785b2015953d",
+    "containerId": "",
+    "name": "checkout",
+    "url": "{{checkout}}/checkout",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-10-29T21:24:00.897Z",
+    "modified": "2022-10-29T21:27:27.190Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cpf\": \"317.153.361-86\",\n  \"orderItems\": [\n    {\n      \"idItem\": 1,\n      \"quantity\": 1\n    },\n    {\n      \"idItem\": 2,\n      \"quantity\": 1\n    },\n    {\n      \"idItem\": 3,\n      \"quantity\": 3\n    }\n  ],\n  \"coupon\": \"VALE20\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "b855d475-4e5a-4bca-8b2c-cebf9fdf4013",
+    "colId": "5a851f27-f89b-4126-a4c1-785b2015953d",
+    "containerId": "",
+    "name": "preview",
+    "url": "{{checkout}}/preview",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-10-29T21:28:54.864Z",
+    "modified": "2022-10-29T21:30:17.559Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cpf\": \"317.153.361-86\",\n  \"orderItems\": [\n    {\n      \"idItem\": 1,\n      \"quantity\": 1\n    },\n    {\n      \"idItem\": 2,\n      \"quantity\": 1\n    },\n    {\n      \"idItem\": 3,\n      \"quantity\": 3\n    }\n  ],\n  \"coupon\": \"VALE20\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "2d73266c-9b50-4be4-974e-f607a579a80d",
+    "colId": "5a851f27-f89b-4126-a4c1-785b2015953d",
+    "containerId": "",
+    "name": "ordersByCpf",
+    "url": "",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2022-10-29T21:29:06.222Z",
+    "modified": "2022-10-29T21:29:06.222Z",
+    "headers": []
+  }
+]
