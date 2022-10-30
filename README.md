@@ -19,3 +19,7 @@ Configurar o projeto do zero:
 * npx jest
 * npx jest --watchAll
 * npx jest --coverage
+
+Rodar serviços
+
+* docker compose up
